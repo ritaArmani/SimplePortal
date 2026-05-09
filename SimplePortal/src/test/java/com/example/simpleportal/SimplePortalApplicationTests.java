@@ -1,22 +1,34 @@
 package com.example.simpleportal;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpSession;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.ui.ExtendedModelMap;
-
 import java.math.BigDecimal;
 import java.util.List;
-import static org.assertj.core.api.Assertions.within;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.ui.ExtendedModelMap;
 
-import com.example.simpleportal.Controller.*;
-import com.example.simpleportal.Model.*;
-import com.example.simpleportal.Service.*;
+import com.example.simpleportal.Controller.CartController;
+import com.example.simpleportal.Controller.PageController;
+import com.example.simpleportal.Controller.PaymentController;
+import com.example.simpleportal.Model.Book;
+import com.example.simpleportal.Model.Course;
+import com.example.simpleportal.Model.LoginForm;
+import com.example.simpleportal.Model.PaymentForm;
+import com.example.simpleportal.Model.SignupForm;
+import com.example.simpleportal.Model.Student;
+import com.example.simpleportal.Service.BookRepository;
+import com.example.simpleportal.Service.CatalogCourseRepository;
+import com.example.simpleportal.Service.CourseService;
+import com.example.simpleportal.Service.EnrollmentRepository;
+import com.example.simpleportal.Service.OrderItemRepository;
+import com.example.simpleportal.Service.OrderRepository;
+import com.example.simpleportal.Service.StudentRepository;
 
 @SpringBootTest
 class SimplePortalApplicationTests {
@@ -116,7 +128,7 @@ class SimplePortalApplicationTests {
 
     @Test
     void gradesUseJpaRepository() {
-        studentRepository.save(new Student(1L, "s1", "s1@test.com", null, null, "pass", "CS", 0.0f, 0L));
+        studentRepository.save(new Student(1L, "s1", "s1@test.com", null, null, "pass", "CS", 0.0f, 0L, "STUDENT"));
         courseService.addCourse(new Course(1L, "Java", "CS202", "Dr. X", "2", "A", 3));
 
         List<Course> courses = courseService.getAllCourses();
@@ -126,7 +138,7 @@ class SimplePortalApplicationTests {
 
     @Test
     void gpaCalculatorUsesGradesAndHours() {
-        studentRepository.save(new Student(1L, "s1", "s1@test.com", null, null, "pass", "CS", 0.0f, 0L));
+        studentRepository.save(new Student(1L, "s1", "s1@test.com", null, null, "pass", "CS", 0.0f, 0L, "STUDENT"));
         courseService.addCourse(new Course(1L, "Algorithms", "CS301", "Dr. Y", "3", "A", 3));
         courseService.addCourse(new Course(1L, "Physics", "PH201", "Dr. Z", "3", "B", 2));
 
@@ -139,7 +151,7 @@ class SimplePortalApplicationTests {
         MockHttpSession session = new MockHttpSession();
         ExtendedModelMap paymentModel = new ExtendedModelMap();
 
-        String addRedirect = cartController.addToCart("Book", null, "Clean Code", new BigDecimal("450.00"), "/books", session);
+        String addRedirect = cartController.addToCart("Book", null, "Clean Code", new BigDecimal("450.00"), "/books", null, session);
         assertThat(addRedirect).isEqualTo("redirect:/books");
 
         String paymentView = paymentController.payment(null, null, null, true, session, paymentModel);

@@ -13,23 +13,9 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.ui.ExtendedModelMap;
 
-import com.example.simpleportal.Controller.CartController;
-import com.example.simpleportal.Controller.PageController;
-import com.example.simpleportal.Controller.PaymentController;
-import com.example.simpleportal.Model.Book;
-import com.example.simpleportal.Model.Course;
-import com.example.simpleportal.Model.LoginForm;
-import com.example.simpleportal.Model.PaymentForm;
-import com.example.simpleportal.Model.SignupForm;
-import com.example.simpleportal.Model.Student;
-import com.example.simpleportal.Service.BookRepository;
-import com.example.simpleportal.Service.CatalogCourseRepository;
-import com.example.simpleportal.Service.CourseService;
-import com.example.simpleportal.Service.EnrollmentRepository;
-import com.example.simpleportal.Service.OrderItemRepository;
-import com.example.simpleportal.Service.OrderRepository;
-import com.example.simpleportal.Service.StudentRepository;
-
+import com.example.simpleportal.Controller.*;
+import com.example.simpleportal.Model.*;
+import com.example.simpleportal.Service.*;
 @SpringBootTest
 class SimplePortalApplicationTests {
     @Autowired

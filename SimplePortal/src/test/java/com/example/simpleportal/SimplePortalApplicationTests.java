@@ -92,7 +92,8 @@ class SimplePortalApplicationTests {
                 "pass",
                 "CS",
                 3.2f,
-                4L
+                4L,
+                "STUDENT"
         ));
 
         LoginForm form = new LoginForm();
